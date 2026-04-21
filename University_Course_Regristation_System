@@ -1,0 +1,92 @@
+#include <iostream>
+using namespace std;
+class Courses
+{
+private:
+    string courseCode;
+    string courseName;
+    string instructor;
+    int creditHours;
+    int enrolledStudents;
+    static int totalCourses;
+    static int totalEnrollments;
+    static int maxEnrollmentSeen;
+
+public:
+    Courses(string code = "unknown", string name = "unknown", string ins = "unknown", int ch = 0, int es = 0)
+    {
+        courseCode = code;
+        courseName = name;
+        instructor = ins;
+        creditHours = ch;
+        enrolledStudents = es;
+        totalCourses++;
+        totalEnrollments += enrolledStudents;
+        if (enrolledStudents > maxEnrollmentSeen)
+        {
+            maxEnrollmentSeen = enrolledStudents;
+        }
+    }
+    Courses(const Courses &obj)
+    {
+        courseCode = obj.courseCode;
+        courseName = obj.courseName;
+        instructor = obj.instructor;
+        enrolledStudents = obj.enrolledStudents;
+        cout << "Course record Duplicated:<" << courseCode << ">" << endl;
+    }
+    void display() const
+    {
+        cout << "COurse Code :" << courseCode << endl;
+        cout << "Course Name :" << courseName << endl;
+        cout << "Instructor :" << instructor << endl;
+        cout << "Credit Hours :" << creditHours << endl;
+        cout << "Enrolled Students :" << enrolledStudents << endl;
+    }
+    string getCourseCode()
+    {
+        return courseCode;
+    }
+    int getEnrolled()
+    {
+        return enrolledStudents;
+    }
+    void addStudents(int s)
+    {
+        enrolledStudents += s;
+        totalEnrollments += enrolledStudents;
+        if (enrolledStudents > maxEnrollmentSeen)
+        {
+            maxEnrollmentSeen = enrolledStudents;
+        }
+    }
+    void changeInstructor(string newInstructor)
+    {
+        instructor = newInstructor;
+    }
+    static int getTotalCourses()
+    {
+        return totalCourses;
+    }
+    static int getTotalEnrollments()
+    {
+        return totalEnrollments;
+    }
+    static int getMaxEnrollment()
+    {
+        return maxEnrollmentSeen;
+    }
+};
+int Courses::totalCourses = 0;
+int Courses::totalEnrollments = 0;
+int Courses::maxEnrollmentSeen = 0;
+int main()
+{
+    Courses C1("MT1003", "Calculus", "Ali", 3, 10);
+    Courses C2("SS1233", "Programming", "Raza", 3, 20);
+    Courses C3("XCXC11", "MVC", "Khan", 3, 15);
+    Courses C4("WER234", "DLD", "ASIF", 2, 5);
+    Courses C5 = C4;
+    C1.display();
+    C4.display();
+}
