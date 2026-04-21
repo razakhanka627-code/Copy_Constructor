@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+class Student
+{
+private:
+    string name;
+    int rollNo;
+    static int totalStudents;
+
+public:
+    static int count;
+    Student(string n = "unknown", int rn = 0)
+    {
+        name = n;
+        rollNo = rn;
+        totalStudents++;
+        count++;
+    }
+    static int getTotalStudents()
+    {
+        return count;
+    }
+    void display() const
+    {
+        cout << "Name :" << name << endl;
+        cout << "Roll No :" << rollNo << endl;
+    }
+    ~Student()
+    {
+        totalStudents--;
+    }
+};
+int Student::totalStudents = 0;
+int Student::count = 0;
+int main()
+{
+    Student S1("ali", 25);
+    Student S2("raza", 26);
+    Student S3("khan", 27);
+    cout << "Total Students :" << Student::getTotalStudents() << endl;
+}
